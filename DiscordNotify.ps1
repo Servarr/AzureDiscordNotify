@@ -61,12 +61,12 @@
                             @{
                                 name = "Author"
                                 value = "[$env:BUILD_SOURCEVERSIONAUTHOR)](https://github.com/$env:BUILD_SOURCEVERSIONAUTHOR))"
-                                inline = true
+                                inline = "true"
                             }
                             @{
                                 name = "Commit"
                                 value = "[``$commit_short``]($commit_url)"
-                                inline = true
+                                inline = "true"
                             }
                             @{
                                 name = "Build Type"
@@ -83,12 +83,12 @@
                             @{
                                 name = "Status"
                                 value = "$status_string"
-                                inline = true
+                                inline = "true"
                             }
                             @{
                                 name = "Duration"
                                 value = "$duration"
-                                inline = true
+                                inline = "true"
                             }
                         )
                     })
