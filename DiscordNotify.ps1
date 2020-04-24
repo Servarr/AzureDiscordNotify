@@ -60,7 +60,7 @@
                         fields = @( 
                             @{
                                 name = "Author"
-                                value = "[$env:BUILD_SOURCEVERSIONAUTHOR)](https://github.com/$env:BUILD_SOURCEVERSIONAUTHOR))"
+                                value = "[$env:BUILD_SOURCEVERSIONAUTHOR](https://github.com/$env:BUILD_SOURCEVERSIONAUTHOR)"
                                 inline = "true"
                             }
                             @{
