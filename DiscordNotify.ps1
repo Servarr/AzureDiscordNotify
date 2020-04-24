@@ -1,4 +1,4 @@
-            if ($env:BUILD_REASON == "PullRequest") {
+            if ($env:BUILD_REASON -eq "PullRequest") {
               $build_type_string = "[PR $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]($env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI/pull/$env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER) to ``$env:SYSTEM_PULLREQUEST_TARGETBRANCH`` from ``$env:SYSTEM_PULLREQUEST_SOURCEBRANCH``"
               $commit_short = "$env:SYSTEM_PULLREQUEST_SOURCECOMMITID".Substring(0,7)
               $commit_url = "$env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI/commit/$env:SYSTEM_PULLREQUEST_SOURCECOMMITID"
