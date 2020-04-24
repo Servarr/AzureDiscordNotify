@@ -5,7 +5,7 @@
             }else {
               $build_type_string = "Mainline Branch ``$env:BUILD_SOURCEBRANCHNAME``"
               $commit_short = "$env:BUILD_SOURCEVERSION".Substring(0,7)
-              $commit_url = "$env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI/commit/$env:BUILD_SOURCEVERSION"
+              $commit_url = "$env:BUILD_REPOSITORY_URI/commit/$env:BUILD_SOURCEVERSION"
             }
 
             $azure_pipeline_url = "$env:SYSTEM_COLLECTIONURI$env:SYSTEM_TEAMPROJECT"
