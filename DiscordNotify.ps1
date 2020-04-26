@@ -28,10 +28,14 @@
             $timeline_url = "$azure_pipeline_url/_apis/build/builds/$env:BUILD_BUILDID/timeline/?api-version=5.1"
             $response2 = (Invoke-RestMethod -Uri $timeline_url -Headers $headers).records
             $failed_tasks = $response2 | Where-Object {$_.Result -eq "failed"} | Measure-Object | Select-Object -expand Count
+            $canceled_tasks = $response2 | Where-Object {$_.Result -eq "canceled"} | Measure-Object | Select-Object -expand Count
             $error_count = $response2 | Select errorCount | Measure-Object -Sum ErrorCount | Select-Object -expand Sum
             $warning_count = $response2 | Select warningCount | Measure-Object -Sum WarningCount | Select-Object -expand Sum
             
-            if($failed_tasks -gt 0) {
+            if ($canceled_tasks -gt 0) {
+              $status_message = "Canceled"
+              $status_color = 15158332
+            }elseif ($failed_tasks -gt 0) {
               $status_message = "Failed"
               $status_color = 15158332
             }elseif ($warning_count -gt 0) {
