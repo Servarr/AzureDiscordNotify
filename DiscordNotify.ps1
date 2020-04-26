@@ -23,7 +23,13 @@
             $response1 = (Invoke-RestMethod -Uri $coverage_url -Headers $headers).coverageData.coverageStats
             $total_lines = $response1 | Where-Object {$_.Label -eq "Lines"} | Select-Object -expand Total
             $covered_lines = $response1 | Where-Object {$_.Label -eq "Lines"} | Select-Object -expand Covered
-            $coverage_percent = [math]::Round($covered_lines/$total_lines*100,2)
+
+            if ($total_lines -lt 1) {
+              $coverage_string = "No Coverage Data for Build"
+            }else {
+              $coverage_percent = [math]::Round($covered_lines/$total_lines*100,2)
+              $coverage_string = "$coverage_percent% ($covered_lines of $total_lines lines)"
+            }
             
             $timeline_url = "$azure_pipeline_url/_apis/build/builds/$env:BUILD_BUILDID/timeline/?api-version=5.1"
             $response2 = (Invoke-RestMethod -Uri $timeline_url -Headers $headers).records
@@ -47,7 +53,6 @@
             }
 
             $test_result_string = "$passed_tests Passed, $failed_tests Failed, $skipped_tests Skipped"
-            $coverage_string = "$coverage_percent% ($covered_lines of $total_lines lines)"
             $status_string = "$status_message ($error_count Errors, $warning_count Warning)"
 
             $start_time = [datetime]$env:SYSTEM_PIPELINESTARTTIME
