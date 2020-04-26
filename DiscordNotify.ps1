@@ -55,7 +55,7 @@
             $body_json = @{
                 embeds = @( @{
                         title = "Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"
-                        url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID)"
+                        url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
                         color = $status_color
                         fields = @( 
                             @{
