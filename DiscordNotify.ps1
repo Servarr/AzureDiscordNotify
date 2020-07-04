@@ -40,7 +40,7 @@
             
             if ($canceled_tasks -gt 0) {
               $status_message = "Canceled"
-              $status_color = 15158332
+              $status_color = 10181046
             }elseif ($failed_tasks -gt 0) {
               $status_message = "Failed"
               $status_color = 15158332
