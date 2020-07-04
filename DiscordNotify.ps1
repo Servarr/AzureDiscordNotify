@@ -55,7 +55,8 @@
             $test_result_string = "$passed_tests Passed, $failed_tests Failed, $skipped_tests Skipped"
             $status_string = "$status_message ($error_count Errors, $warning_count Warning)"
 
-            $start_time = [datetime]$env:SYSTEM_PIPELINESTARTTIME
+            $start_time = [datetime]::Parse($env:SYSTEM_PIPELINESTARTTIME)
+            Write-Output $start_time
             $end_time = Get-Date
             $duration = New-TimeSpan -Start $start_time -End $end_time
 
