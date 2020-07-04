@@ -39,7 +39,7 @@
             $warning_count = $response2 | Select warningCount | Measure-Object -Sum WarningCount | Select-Object -expand Sum
             
             if ($canceled_tasks -gt 0) {
-              $status_message = "Canceled"
+              $status_message = "Cancelled"
               $status_color = 10181046
             }elseif ($failed_tasks -gt 0) {
               $status_message = "Failed"
