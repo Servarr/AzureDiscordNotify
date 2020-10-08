@@ -70,20 +70,21 @@
             $status_string = "$status_message ($error_count Errors, $warning_count Warning)"
 
             $start_time = [datetime]::Parse($startTimeString)
-            Write-Output $start_time
             $end_time = Get-Date
             $ts = New-TimeSpan -Start $start_time -End $end_time
             $duration_string = "{0:c}" -f $ts
 
             $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
+            $image_url = "$azure_pipeline_url/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
+            Write-Output $image_url
 
             $body_json = @{
                 embeds = @( @{
                         title = "Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"
                         url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
                         color = $status_color
-                        thumbnail = @{
-                            url = "$azure_pipeline_url/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
+                        image = @{
+                            url = $image_url
                         }
                         fields = @( 
                             @{
