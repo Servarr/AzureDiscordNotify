@@ -85,8 +85,14 @@
                         url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
                         color = $status_color
                         image = @{
-                            url = $image_url
+                            url = "attachment://image.png"
                         }
+                        files = @(
+                            @{
+                                attachement = $image_url
+                                name = "image.png"
+                            }
+                        )
                         fields = @( 
                             @{
                                 name = "Author"
