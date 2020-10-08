@@ -35,6 +35,7 @@
             
             $timeline_url = "$azure_pipeline_url/_apis/build/builds/$env:BUILD_BUILDID/timeline/?api-version=5.1"
             $response2 = (Invoke-RestMethod -Uri $timeline_url -Headers $headers).records
+            $first_task = $response2 | Select -First 1
             $failed_tasks = $response2 | Where-Object {$_.Result -eq "failed"} | Measure-Object | Select-Object -expand Count
             $canceled_tasks = $response2 | Where-Object {$_.Result -eq "canceled"} | Measure-Object | Select-Object -expand Count
             $error_count = $response2 | Select errorCount | Measure-Object -Sum ErrorCount | Select-Object -expand Sum
@@ -65,7 +66,7 @@
             $test_result_string = "$passed_tests Passed, $failed_tests Failed, $skipped_tests Skipped"
             $status_string = "$status_message ($error_count Errors, $warning_count Warning)"
 
-            $start_time = [datetime]::Parse($env:SYSTEM_PIPELINESTARTTIME)
+            $start_time = [datetime]::Parse($first_task.startTime)
             Write-Output $start_time
             $end_time = Get-Date
             $duration = New-TimeSpan -Start $start_time -End $end_time
