@@ -86,7 +86,7 @@
                             }
                             @{
                                 name = "Commit"
-                                value = "[``$commit_short``]($commit_url) [Lines Changed: $gitLinesChanged / +$gitAdds -$gitDeletes]"
+                                value = "[``$commit_short``]($commit_url) ``[Changes +$gitAdds -$gitDeletes]``"
                                 inline = "true"
                             }
                             @{
