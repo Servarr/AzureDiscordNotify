@@ -89,7 +89,7 @@
                         }
                         files = @(
                             @{
-                                attachement = $image_url
+                                attachement = "$env:BUILD_SOURCESDIRECTORY/system_page.jpg"
                                 name = "image.png"
                             }
                         )
