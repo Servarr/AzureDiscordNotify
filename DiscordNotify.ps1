@@ -82,6 +82,9 @@
                         title = "Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"
                         url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
                         color = $status_color
+                        thumbnail = @{
+                            url = "https://dev.azure.com/Radarr/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
+                        }
                         fields = @( 
                             @{
                                 name = "Author"
