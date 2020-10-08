@@ -83,7 +83,7 @@
                         url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
                         color = $status_color
                         thumbnail = @{
-                            url = "https://dev.azure.com/Radarr/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
+                            url = "$azure_pipeline_url/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
                         }
                         fields = @( 
                             @{
