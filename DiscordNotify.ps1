@@ -51,6 +51,7 @@
             $build_info_url = "$azure_pipeline_url/_apis/build/builds/$env:BUILD_BUILDID/?api-version=5.1"
             $response4 = (Invoke-RestMethod -Uri $build_info_url -Headers $headers)
             $startTimeString = $response4.startTime
+            $project = $response4.definition.project.name
             
             if ($canceled_tasks -gt 0) {
               $status_message = "Cancelled"
@@ -75,7 +76,7 @@
             $duration_string = "{0:c}" -f $ts
 
             $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
-            $image_url = "$azure_pipeline_url/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
+            $image_url = "https://dev.azure.com/$project/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
             Write-Output $image_url
 
             $body_json = @{
