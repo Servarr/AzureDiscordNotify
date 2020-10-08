@@ -72,7 +72,8 @@
             $start_time = [datetime]::Parse($startTimeString)
             Write-Output $start_time
             $end_time = Get-Date
-            $duration = New-TimeSpan -Start $start_time -End $end_time
+            $ts = New-TimeSpan -Start $start_time -End $end_time
+            $duration_string = "{0:c}" -f $ts
 
             $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
 
@@ -111,7 +112,7 @@
                             }
                             @{
                                 name = "Duration"
-                                value = "$duration"
+                                value = "$duration_string"
                                 inline = "true"
                             }
                         )
