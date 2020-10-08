@@ -35,7 +35,6 @@
             
             $timeline_url = "$azure_pipeline_url/_apis/build/builds/$env:BUILD_BUILDID/timeline/?api-version=5.1"
             $response2 = (Invoke-RestMethod -Uri $timeline_url -Headers $headers).records
-            $first_task = $response2 | Select -First 1
             $failed_tasks = $response2 | Where-Object {$_.Result -eq "failed"} | Measure-Object | Select-Object -expand Count
             $canceled_tasks = $response2 | Where-Object {$_.Result -eq "canceled"} | Measure-Object | Select-Object -expand Count
             $error_count = $response2 | Select errorCount | Measure-Object -Sum ErrorCount | Select-Object -expand Sum
@@ -48,6 +47,10 @@
             $gitLinesChanged = $response3.stats.total
             $gitAdds = $response3.stats.additions
             $gitDeletes = $response3.stats.deletions
+            
+            $build_info_url = "$azure_pipeline_url/_apis/build/builds/$env:BUILD_BUILDID/?api-version=5.1"
+            $response4 = (Invoke-RestMethod -Uri $build_info_url -Headers $headers)
+            $startTimeString = $response4.startTime
             
             if ($canceled_tasks -gt 0) {
               $status_message = "Cancelled"
@@ -66,7 +69,7 @@
             $test_result_string = "$passed_tests Passed, $failed_tests Failed, $skipped_tests Skipped"
             $status_string = "$status_message ($error_count Errors, $warning_count Warning)"
 
-            $start_time = [datetime]::Parse($first_task.startTime)
+            $start_time = [datetime]::Parse($startTimeString)
             Write-Output $start_time
             $end_time = Get-Date
             $duration = New-TimeSpan -Start $start_time -End $end_time
