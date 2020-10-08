@@ -1,10 +1,12 @@
             if ($env:BUILD_REASON -eq "PullRequest") {
               $build_type_string = "[PR $env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER]($env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI/pull/$env:SYSTEM_PULLREQUEST_PULLREQUESTNUMBER) to ``$env:SYSTEM_PULLREQUEST_TARGETBRANCH`` from ``$env:SYSTEM_PULLREQUEST_SOURCEBRANCH``"
               $commit_short = "$env:SYSTEM_PULLREQUEST_SOURCECOMMITID".Substring(0,7)
+              $commit = "$env:SYSTEM_PULLREQUEST_SOURCECOMMITID"
               $commit_url = "$env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI/commit/$env:SYSTEM_PULLREQUEST_SOURCECOMMITID"
             }else {
               $build_type_string = "Mainline Branch ``$env:BUILD_SOURCEBRANCHNAME``"
               $commit_short = "$env:BUILD_SOURCEVERSION".Substring(0,7)
+              $commit = "$env:BUILD_SOURCEVERSION"
               $commit_url = "$env:BUILD_REPOSITORY_URI/commit/$env:BUILD_SOURCEVERSION"
             }
 
@@ -38,6 +40,14 @@
             $error_count = $response2 | Select errorCount | Measure-Object -Sum ErrorCount | Select-Object -expand Sum
             $warning_count = $response2 | Select warningCount | Measure-Object -Sum WarningCount | Select-Object -expand Sum
             
+            $git_url = "https://api.github.com/repos/$env:BUILD_REPOSITORY_NAME/commits/$commit"
+            $response3 = (Invoke-RestMethod -Uri $git_url -Headers $headers)
+            $gitAuthor = $response3.author.login
+            $gitAuthorLink = $response3.author.html_url
+            $gitLinesChanged = $response3.stats.total
+            $gitAdds = $response3.stats.additions
+            $gitDeletes = $response3.stats.deletions
+            
             if ($canceled_tasks -gt 0) {
               $status_message = "Cancelled"
               $status_color = 10181046
@@ -70,12 +80,12 @@
                         fields = @( 
                             @{
                                 name = "Author"
-                                value = "[$env:BUILD_SOURCEVERSIONAUTHOR](https://github.com/$env:BUILD_SOURCEVERSIONAUTHOR)"
+                                value = "[$gitAuthor]($gitAuthorLink)"
                                 inline = "true"
                             }
                             @{
                                 name = "Commit"
-                                value = "[``$commit_short``]($commit_url)"
+                                value = "[``$commit_short``]($commit_url) [Lines Changed: $gitLinesChanged / +$gitAdds -$gitDeletes]"
                                 inline = "true"
                             }
                             @{
