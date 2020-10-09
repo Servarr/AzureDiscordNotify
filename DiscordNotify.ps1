@@ -123,5 +123,5 @@
                 }'
 
             $screenshot = "_tests\system_page.png"
-            gci env:* | sort-object name
+            $body_json = $ExecutionContext.InvokeCommand.ExpandString($body_json)
             curl.exe -fsSL -H "Content-Type: multipart/form-data" -F file=@$screenshot -F payload_json=$body_json $webhook_url
