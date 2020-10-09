@@ -122,5 +122,5 @@
                     })
                 }'
 
-            $screenshot = '$env:BUILD_SOURCESDIRECTORY\system_page.png'
+            $screenshot = "$env:BUILD_SOURCESDIRECTORY\system_page.png"
             curl.exe -fsSL -H "Content-Type: multipart/form-data" -F file=@$screenshot -F payload_json=$body_json $webhook_url
