@@ -92,31 +92,31 @@
                                 ""inline"": ""true""
                             },
                             {
-                                ""name"" = ""Commit"",
-                                ""value"" = ""[``$commit_short``]($commit_url) ``[Changes +$gitAdds -$gitDeletes]``"",
-                                ""inline"" = ""true""
+                                ""name"": ""Commit"",
+                                ""value"": ""[``$commit_short``]($commit_url) ``[Changes +$gitAdds -$gitDeletes]``"",
+                                ""inline"": ""true""
                             },
                             {
-                                ""name"" = ""Build Type"",
-                                ""value"" = ""$build_type_string""
+                                ""name"": ""Build Type"",
+                                ""value"": ""$build_type_string""
                             },
                             {
-                                ""name"" = ""Test Results"",
-                                ""value"" = ""$test_result_string""
+                                ""name"": ""Test Results"",
+                                ""value"": ""$test_result_string""
                             },
                             {
-                                ""name"" = ""Coverage"",
-                                ""value"" = ""$coverage_string""
+                                ""name"": ""Coverage"",
+                                ""value"": ""$coverage_string""
                             },
                             {
-                                ""name"" = ""Status"",
-                                ""value"" = ""$status_string"",
-                                ""inline"" = ""true""
+                                ""name"": ""Status"",
+                                ""value"": ""$status_string"",
+                                ""inline"": ""true""
                             },
                             {
-                                ""name"" = ""Duration"",
-                                ""value"" = ""$duration_string"",
-                                ""inline"" = ""true""
+                                ""name"": ""Duration"",
+                                ""value"": ""$duration_string"",
+                                ""inline"": ""true""
                             }
                         ]
                     }]
