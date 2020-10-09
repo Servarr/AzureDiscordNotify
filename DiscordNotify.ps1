@@ -124,4 +124,9 @@
 
             $screenshot = "_tests\system_page.png"
             $body_json = $ExecutionContext.InvokeCommand.ExpandString($body_json)
-            curl.exe -fsSL -H "Content-Type: multipart/form-data" -F file=@$screenshot -F payload_json=$body_json $webhook_url
+            
+            if (!(Test-Path $screenshot)) {
+                curl.exe -fsSL -H "Content-Type: multipart/form-data" -F payload_json=$body_json $webhook_url
+            }else {
+                curl.exe -fsSL -H "Content-Type: multipart/form-data" -F file=@$screenshot -F payload_json=$body_json $webhook_url
+            }
