@@ -76,58 +76,50 @@
             $duration_string = "{0:c}" -f $ts
 
             $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
-            $image_url = "https://dev.azure.com/$project/_apis/resources/Containers/$env:BUILD_CONTAINERID/WindowsAutomationScreenshot?itemPath=WindowsAutomationScreenshot%2F_tests%2Fsystem_page.png"
-            Write-Output $image_url
 
-            $body_json = @{
-                embeds = @( @{
-                        title = "Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"
-                        url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
-                        color = $status_color
-                        image = @{
-                            url = "attachment://image.png"
-                        }
-                        files = @(
-                            @{
-                                attachement = "$env:BUILD_SOURCESDIRECTORY/system_page.jpg"
-                                name = "image.png"
-                            }
-                        )
-                        fields = @( 
-                            @{
-                                name = "Author"
-                                value = "[$gitAuthor]($gitAuthorLink)"
-                                inline = "true"
-                            }
-                            @{
-                                name = "Commit"
-                                value = "[``$commit_short``]($commit_url) ``[Changes +$gitAdds -$gitDeletes]``"
-                                inline = "true"
-                            }
-                            @{
-                                name = "Build Type"
-                                value = "$build_type_string"
-                            }
-                            @{
-                                name = "Test Results"
-                                value = "$test_result_string"
-                            }
-                            @{
-                                name = "Coverage"
-                                value = "$coverage_string"
-                            }
-                            @{
-                                name = "Status"
-                                value = "$status_string"
-                                inline = "true"
-                            }
-                            @{
-                                name = "Duration"
-                                value = "$duration_string"
-                                inline = "true"
+            $body_json = '{
+                embeds: ({
+                        ""title"": ""Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"",
+                        ""url"": ""$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"",
+                        ""color"": ""$status_color"",
+                        ""image"": {
+                            ""url"": ""attachment://system_page.png""
+                        },
+                        ""fields"": ( 
+                            {
+                                ""name"": ""Author"",
+                                ""value"": ""[$gitAuthor]($gitAuthorLink)"",
+                                ""inline"": ""true""
+                            },
+                            {
+                                ""name"" = ""Commit"",
+                                ""value"" = ""[``$commit_short``]($commit_url) ``[Changes +$gitAdds -$gitDeletes]``"",
+                                ""inline"" = ""true""
+                            },
+                            {
+                                ""name"" = ""Build Type"",
+                                ""value"" = ""$build_type_string""
+                            },
+                            {
+                                ""name"" = ""Test Results"",
+                                ""value"" = ""$test_result_string""
+                            },
+                            {
+                                ""name"" = ""Coverage"",
+                                ""value"" = ""$coverage_string""
+                            },
+                            {
+                                ""name"" = ""Status"",
+                                ""value"" = ""$status_string"",
+                                ""inline"" = ""true""
+                            },
+                            {
+                                ""name"" = ""Duration"",
+                                ""value"" = ""$duration_string"",
+                                ""inline"" = ""true""
                             }
                         )
                     })
-                } | ConvertTo-Json -Depth 4
+                }'
 
-            Invoke-RestMethod -Method Post -Uri $webhook_url -Body $body_json -ContentType "application/json"
+            curl.exe -fsSL -H "Content-Type: multipart/form-data" -F file=@'system_page.png' -F payload_json=$body_json $webhook_url
