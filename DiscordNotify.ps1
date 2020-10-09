@@ -122,7 +122,7 @@
                     }]
                 }'
 
-            $screenshot = "WindowsAutomationScreenshot\_tests\system_page.png"
+            $screenshot = "D:\a\1\s\WindowsAutomationScreenshot\_tests\system_page.png"
             $body_json = $ExecutionContext.InvokeCommand.ExpandString($body_json)
             
             if (!(Test-Path $screenshot)) {
