@@ -78,7 +78,7 @@
             $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
 
             $body_json = '{
-                embeds: ({
+                ""embeds"": ({
                         ""title"": ""Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"",
                         ""url"": ""$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"",
                         ""color"": ""$status_color"",
