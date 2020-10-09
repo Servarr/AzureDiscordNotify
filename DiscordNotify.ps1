@@ -78,14 +78,14 @@
             $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
 
             $body_json = '{
-                ""embeds"": ({
+                ""embeds"": [{
                         ""title"": ""Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"",
                         ""url"": ""$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"",
                         ""color"": ""$status_color"",
                         ""image"": {
                             ""url"": ""attachment://system_page.png""
                         },
-                        ""fields"": ( 
+                        ""fields"": [ 
                             {
                                 ""name"": ""Author"",
                                 ""value"": ""[$gitAuthor]($gitAuthorLink)"",
@@ -118,8 +118,8 @@
                                 ""value"" = ""$duration_string"",
                                 ""inline"" = ""true""
                             }
-                        )
-                    })
+                        ]
+                    }]
                 }'
 
             $screenshot = "_tests\system_page.png"
