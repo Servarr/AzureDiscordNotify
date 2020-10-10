@@ -83,7 +83,7 @@
                         ""url"": ""$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"",
                         ""color"": ""$status_color"",
                         ""image"": {
-                            ""url"": ""attachment://system_page.png""
+                            ""url"": ""attachment://system_page_test_screenshot.png""
                         },
                         ""fields"": [ 
                             {
