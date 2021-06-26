@@ -88,7 +88,7 @@ $duration_string = ("{0:hh\:mm\:ss}" -f $ts)
 
 $webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
 
-$screenshot = "_tests\system_page_test_screenshot.png"
+$screenshot = "_tests" + [System.IO.Path]::DirectorySeparatorChar + "system_page_test_screenshot.png"
 
 $notificationTitle = "Build $env:BUILD_BUILDNUMBER [$env:BUILD_REPOSITORY_NAME]"
 
@@ -136,7 +136,7 @@ $screenshotExists = Test-Path $screenshot
 if ($screenshotExists)
 {
     $embedsSetup['image'] = @{
-        url = "attachment://$screenshot"
+        url = "attachment://system_page_test_screenshot.png"
     }
 }
 
