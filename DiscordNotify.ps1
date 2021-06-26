@@ -146,9 +146,13 @@ $body_json = @{
 
 if (!$screenshotExists)
 {
-    curl.exe -fsSL -H "Content-Type: multipart/form-data" -F payload_json=$body_json $webhook_url
+    Invoke-RestMethod -Uri $webhook_url -Body $body_json -Method Post -ContentType 'application/json; charset=UTF-8'
 }
 else
 {
-    curl.exe -fsSL -H "Content-Type: multipart/form-data" -F file=@$screenshot -F payload_json=$body_json $webhook_url
+    $formData = @{
+        file = (Get-Item $screenshot) 
+        payload_json = $body_json
+    }
+    Invoke-RestMethod -Uri $webhook_url -Form $formData -Method Post
 }
