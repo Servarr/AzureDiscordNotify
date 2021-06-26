@@ -127,7 +127,7 @@ $duration = @{
 
 $embedsSetup = @{
     title = "$notificationTitle"
-    url = $url
+    url = $build_info_url
     color = $status_color
     fields = $author, $commit, $buildType, $testResults, $coverage, $status, $duration
 }
