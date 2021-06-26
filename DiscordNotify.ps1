@@ -127,7 +127,7 @@ $duration = @{
 
 $embedsSetup = @{
     title = "$notificationTitle"
-    url = $build_info_url
+    url = "$azure_pipeline_url/_build/results?buildId=$env:BUILD_BUILDID"
     color = $status_color
     fields = $author, $commit, $buildType, $testResults, $coverage, $status, $duration
 }
