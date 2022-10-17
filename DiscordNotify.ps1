@@ -86,7 +86,7 @@ $end_time = Get-Date
 $ts = New-TimeSpan -Start $start_time -End $end_time
 $duration_string = ("{0:hh\:mm\:ss}" -f $ts)
 
-$webhook_url = "https://discordapp.com/api/webhooks/$env:DISCORDCHANNELID/$env:DISCORDWEBHOOKKEY"
+$webhook_url = "$env:DISCORDWEBHOOK"
 
 $screenshot = "_tests" + [System.IO.Path]::DirectorySeparatorChar + "system_page_test_screenshot.png"
 
